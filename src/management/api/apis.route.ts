@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ViewService from '../../services/view.service';
-import ApisController from './apis.controller';
-import TenantService from '../../services/tenant.service';
-import ResourceService from '../../services/resource.service';
-import TagService from '../../services/tag.service';
-import ApiService from '../../services/api.service';
-import MetadataService from '../../services/metadata.service';
-import GroupService from '../../services/group.service';
-import * as _ from 'lodash';
+import ViewService from "../../services/view.service";
+import ApisController from "./apis.controller";
+import TenantService from "../../services/tenant.service";
+import ResourceService from "../../services/resource.service";
+import TagService from "../../services/tag.service";
+import ApiService from "../../services/api.service";
+import MetadataService from "../../services/metadata.service";
+import GroupService from "../../services/group.service";
+import * as _ from "lodash";
 import AuditService from "../../services/audit.service";
 
 export default apisRouterConfig;
@@ -242,14 +242,25 @@ function apisRouterConfig($stateProvider: ng.ui.IStateProvider) {
       }
     })
     .state('management.apis.detail.plans', {
-      url: '/plans?state',
-      template: require('./plans/apiPlans.html'),
-      controller: 'ApiPlansController',
-      controllerAs: 'apiPlansCtrl',
+      abstract: true,
+      url: '/plans',
+      component: 'plans',
       resolve: {
-        resolvedPlans: function ($stateParams, ApiService) {
-          return ApiService.getApiPlans($stateParams.apiId);
+        api: ($stateParams: ng.ui.IStateParamsService, ApiService: ApiService) =>
+          ApiService.get($stateParams.apiId).then(response => response.data)
+        /*
+        groups: (GroupService: GroupService) => {
+          GroupService.list().then(response => response.data);
         }
+        */
+      }
+    })
+    .state('management.apis.detail.plans.list', {
+      url: '/?state',
+      component: 'listPlans',
+      resolve: {
+        plans: ($stateParams: ng.ui.IStateParamsService, ApiService: ApiService) =>
+          ApiService.getApiPlans($stateParams.apiId).then(response => response.data),
       },
       data: {
         menu: {
@@ -266,10 +277,32 @@ function apisRouterConfig($stateProvider: ng.ui.IStateProvider) {
       params: {
         state: {
           type: 'string',
-          dynamic: true,
+          dynamic: true
         }
       }
     })
+    .state('management.apis.detail.plans.new', {
+      url: '/new',
+      component: 'editPlan'
+    })
+    .state('management.apis.detail.plans.plan', {
+      url: '/plan/:planId',
+      component: 'editPlan',
+      resolve: {
+        plan: ($stateParams: ng.ui.IStateParamsService, ApiService: ApiService) =>
+          ApiService.getApiPlan($stateParams.apiId, $stateParams.planId).then(response => response.data)
+      }
+    })
+    /*
+    .state('management.apis.detail.plans.plan.edit', {
+      url: '/edit',
+      component: 'editPlan',
+      resolve: {
+        plan: ($stateParams: ng.ui.IStateParamsService, ApiService: ApiService) =>
+          ApiService.getApiPlan($stateParams.apiId, $stateParams.planId).then(response => response.data),
+      }
+    })
+    */
     .state('management.apis.detail.subscriptions', {
       url: '/subscriptions',
       template: require('./subscriptions/subscriptions.html'),

@@ -1,0 +1,44 @@
+<div layout="column">
+  <div>
+    <span class="md-headline" style="padding: 24px 16px 16px;">Plan</span>
+  </div>
+
+  <div layout="row" flex>
+    <div class="api-creation-steppers" flex="{{$ctrl.vm.selectedStep !== 4 ? 60: 100}}">
+      <md-steppers md-dynamic-height md-disable-tabs-behavior="true" md-stretch-steppers="always"
+                   md-selected="$ctrl.vm.selectedStep" md-busy-text="'Processing...'"
+                   md-busy="$ctrl.vm.showBusyText">
+        <plan-wizard-general></plan-wizard-general>
+        <plan-wizard-security></plan-wizard-security>
+        <plan-wizard-policies></plan-wizard-policies>
+      </md-steppers>
+    </div>
+
+    <div class="api-creation-timeline-wrapper" layout-padding flex ng-show="$ctrl.vm.selectedStep !== 4">
+      <h4>Live preview</h4>
+
+      <api-plan plan="$ctrl.plan" subscribable="false"></api-plan>
+      <!--
+      <div>
+        <h4>Prepare your API</h4>
+        <md-divider></md-divider>
+      </div>
+      <div class="api-creation-timeline">
+        <timeline>
+          <timeline-event ng-repeat="apiStep in $ctrl.apiSteps" side="right">
+            <timeline-badge class="{{apiStep.badgeClass}}">
+              <i class="glyphicon {{apiStep.badgeIconClass}}"></i>
+            </timeline-badge>
+            <timeline-panel class="{{apiStep.badgeClass}}">
+              <timeline-heading>
+                <div style="font-weight: 600; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" ng-bind-html="apiStep.title"></div>
+              </timeline-heading>
+              <p>{{apiStep.content}}</p>
+            </timeline-panel>
+          </timeline-event>
+        </timeline>
+      </div>
+    </div>-->
+  </div>
+
+</div>

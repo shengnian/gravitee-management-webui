@@ -1,0 +1,77 @@
+<!--
+
+    Copyright (C) 2015 The Gravitee team (http://gravitee.io)
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<md-step label="Secure" md-complete="$ctrl.parent.vm.stepData[0].data.completed">
+  <md-step-body>
+    <md-content layout-padding class="api-creation-general-content api-creation-content">
+      <section>
+        <md-subheader class="md-primary" style="background-color: #fafafa">Authentication</md-subheader>
+        <form name="apiGeneralForm">
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Authentication type</label>
+              <md-select ng-model="$ctrl.parent.plan.security" placeholder="Security type" required ng-disabled="$ctrl.plan.id"
+                         ng-change="$ctrl.onSecurityTypeChange()">
+                <md-option ng-repeat="type in $ctrl.securityTypes" ng-value="type.id">{{type.name}}</md-option>
+              </md-select>
+              <div class="hint">Select the type of authentication</div>
+            </md-input-container>
+          </div>
+        </form>
+      </section>
+
+      <br />
+
+      <section ng-if="$ctrl.securitySchema">
+        <md-subheader class="md-primary" style="background-color: #fafafa">Configuration</md-subheader>
+        <form name="securityConfigurationForm" sf-schema="$ctrl.securitySchema" sf-form="$ctrl.securitySchemaForm"
+              sf-model="$ctrl.parent.plan.securityDefinition"
+              sf-options="{ validateOnRender: true }" novalidate>
+        </form>
+      </section>
+
+      <!--
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Context-path</label>
+            <input ng-model="$ctrl.parent.api.proxy.context_path" type="text" minlength="3"
+                   ng-pattern="/^\/[\/.a-zA-Z0-9-_]+$/" required name="contextPath" ng-change="$ctrl.parent.onChangeContextPath()">
+            <div class="hint" ng-if="apiGeneralForm.contextPath.$valid || apiGeneralForm.contextPath.$pristine">
+              Path where API is exposed, must start with a '/' and must contain any letter, capitalize letter, number, dash or underscore.
+            </div>
+            <div ng-messages="apiGeneralForm.contextPath.$error">
+              <div ng-message="required">Context path is required.</div>
+              <div ng-message="minlength">Context path has to be more than 3 characters long.</div>
+              <div ng-message="pattern">Context path is not valid (must start with a '/' and must contain any letter, capitalize letter, number, dash or underscore)</div>
+            </div>
+          </md-input-container>
+        </div>
+        -->
+      <md-step-actions layout="row">
+        <div flex>
+          <md-button ng-click="$ctrl.parent.moveToPreviousStep()">PREVIOUS</md-button>
+        </div>
+        <div flex layout="row" layout-align="end top">
+          <md-button ng-disabled="apiGeneralForm.$invalid || securityConfigurationForm.$invalid"
+                     ng-click="$ctrl.parent.validFirstStep($ctrl.parent.vm.stepData[0].data)"
+                     class="md-primary md-raised">NEXT</md-button>
+        </div>
+      </md-step-actions>
+      </form>
+    </md-content>
+  </md-step-body>
+</md-step>

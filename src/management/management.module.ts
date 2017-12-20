@@ -169,8 +169,17 @@ import ApiCreationStep2Component from '../management/api/creation/steps/api-crea
 import ApiCreationStep3Component from '../management/api/creation/steps/api-creation-step3.component';
 import ApiCreationStep4Component from '../management/api/creation/steps/api-creation-step4.component';
 import ApiCreationStep5Component from '../management/api/creation/steps/api-creation-step5.component';
-import ApiPlanComponent from '../management/api/api-plan.component';
 
+import ApiPlanComponent from '../management/api/api-plan.component';
+import ApiPlansComponent from '../management/api/plans/plans.component';
+import ApiPlansController from '../management/api/plans/plans.controller';
+import ApiEditPlanController from '../management/api/plans/plan/edit-plan.controller';
+import ApiEditPlanComponent from '../management/api/plans/plan/edit-plan.component';
+import ApiListPlansComponent from '../management/api/plans/list-plans.component';
+import ApiListPlansController from '../management/api/plans/list-plans.controller';
+import ApiEditPlanWizardGeneralComponent from '../management/api/plans/plan/plan-wizard-general.component';
+import ApiEditPlanWizardSecurityComponent from '../management/api/plans/plan/plan-wizard-security.component';
+import ApiEditPlanWizardPoliciesComponent from '../management/api/plans/plan/plan-wizard-policies.component';
 
 // Applications
 import ApplicationService from '../services/applications.service';
@@ -242,7 +251,6 @@ import DialogAddGroupMemberController from '../management/configuration/groups/d
 import RegistrationController from '../user/registration/registration.controller';
 import ConfirmController from '../user/registration/confirm/confirm.controller';
 import SubscriptionService from '../services/subscription.service';
-import ApiPlansController from '../management/api/plans/apiPlans.controller';
 import DialogSubscriptionRejectController from '../management/api/subscriptions/subscription.reject.dialog.controller';
 import DialogSubscriptionAcceptController from '../management/api/subscriptions/subscription.accept.dialog.controller';
 import DialogSubscriptionCreateController from '../management/api/subscriptions/subscription.create.dialog.controller';
@@ -424,7 +432,6 @@ angular.module('gravitee-management', [uiRouter, permission, uiPermission, 'ngMa
   .controller('DialogAddGroupMemberController', DialogAddGroupMemberController)
   .controller('RegistrationController', RegistrationController)
   .controller('ConfirmController', ConfirmController)
-  .controller('ApiPlansController', ApiPlansController)
   .controller('DialogSubscriptionRejectController', DialogSubscriptionRejectController)
   .controller('DialogSubscriptionAcceptController', DialogSubscriptionAcceptController)
   .controller('DialogSubscriptionCreateController', DialogSubscriptionCreateController)
@@ -513,13 +520,24 @@ angular.module('gravitee-management', [uiRouter, permission, uiPermission, 'ngMa
   .component('apiCreationStep3', ApiCreationStep3Component)
   .component('apiCreationStep4', ApiCreationStep4Component)
   .component('apiCreationStep5', ApiCreationStep5Component)
-  .component('apiPlan', ApiPlanComponent)
   .component('apiMetadata', ApiMetadataComponent)
   .component('gvDashboard', DashboardComponent)
   .component('gvDashboardFilter', DashboardFilterComponent)
   .controller('DashboardFilterController', DashboardFilterController)
   .component('gvDashboardTimeframe', DashboardTimeframeComponent)
   .controller('DashboardTimeframeController', DashboardTimeframeController)
+
+  // Plan
+  .component('plans', ApiPlansComponent)
+  .component('apiPlan', ApiPlanComponent)
+  .controller('ApiPlansController', ApiPlansController)
+  .component('editPlan', ApiEditPlanComponent)
+  .controller('ApiEditPlanController', ApiEditPlanController)
+  .component('listPlans', ApiListPlansComponent)
+  .controller('ApiListPlansController', ApiListPlansController)
+  .component('planWizardGeneral', ApiEditPlanWizardGeneralComponent)
+  .component('planWizardSecurity', ApiEditPlanWizardSecurityComponent)
+  .component('planWizardPolicies', ApiEditPlanWizardPoliciesComponent)
 
   .component('applications', ApplicationsComponent)
   .component('application', ApplicationComponent)
