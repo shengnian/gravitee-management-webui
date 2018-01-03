@@ -63,3 +63,17 @@ md-toolbar.topnavbar {
     background-color: #F5F5F5;
   }
 }
+
+.gv-menu-badge {
+  margin-left: 5px;
+}
+
+.gv-menu-badge-alert {
+  background-color: #e53935;
+  font-size: 5px;
+  padding: 3px 4px;
+  float: left;
+  position: absolute;
+  top: 5px;
+  left: 40px;
+}

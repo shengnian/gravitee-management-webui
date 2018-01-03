@@ -22,6 +22,7 @@ export class User {
   public userPermissions: string[];
   public userApiPermissions: string[];
   public userApplicationPermissions: string[];
+  public tasks: any;
 
   constructor() {
     'ngInject';
